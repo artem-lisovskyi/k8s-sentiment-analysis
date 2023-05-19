@@ -1,0 +1,52 @@
+1.
+cd sa-frontend
+
+LOCAL:
+
+npm start
+
+
+DOCKER:
+
+docker build -f Dockerfile -t devroop1/sentiment-analysis-frontend .
+docker push  devroop1/sentiment-analysis-frontend
+docker run -d -p 80:80 devroop1/sentiment-analysis-frontend
+
+
+2.
+cd sa-logic/sa
+
+
+LOCAL:
+
+python sentiment_analysis.py
+
+
+DOCKER:
+
+docker build -f Dockerfile -t devroop1/sentiment-analysis-logic .
+docker push devroop1/sentiment-analysis-logic
+docker run -d -p 5050:5000 devroop1/sentiment-analysis-logic
+
+
+
+
+3.
+cd sa-webapp/target
+
+LOCAL:
+
+java -jar sentiment-analysis-web-0.0.1-SNAPSHOT.jar --sa.logic.api.url=http://localhost:5000
+
+
+DOCKER:
+
+docker build -f Dockerfile -t devroop1/sentiment-analysis-web-app .
+docker push devroop1/sentiment-analysis-web-app
+docker run -d -p 8080:8080 -e SA_LOGIC_API_URL='http://172.17.0.2:5000' devroop1/sentiment-analysis-web-app
+
+
+
+
+
+

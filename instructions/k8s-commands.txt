@@ -1,0 +1,22 @@
+minikube start
+minikube dashboard
+minikube tunnel
+
+
+kubectl apply -f sa-web-app-deployment.yaml
+kubectl apply -f service-sa-web-app-lb.yaml
+
+
+kubectl apply -f sa-logic-deployment.yaml
+kubectl apply -f service-sa-logic.yaml
+
+
+kubectl create -f service-sa-frontend-lb.yaml
+kubectl apply -f sa-frontend-deployment.yaml
+
+
+kubectl get pods
+kubectl get service
+
+
+minikube service sa-frontend-lb
